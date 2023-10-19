@@ -1,0 +1,16 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+} 
+/* body {
+    background-color: #111;
+} */
+
+button {
+    width: 100vw;
+    height: 2px;
+}
