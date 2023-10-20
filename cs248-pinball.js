@@ -267,7 +267,26 @@ class Obstacle {
 	}
 	// TODO: Two-sided finite difference calculation.
 	normalFD2(p) {
-		return this.normalFD1(p); /// LIES!!! 1≠2
+		const h = 0.1;
+		let q = createVector(p.x, p.y);
+		q.x += h;
+		let d = this.distance(p);
+		let dxh = this.distance(q);
+		q.x -= h;
+		q.y += h;
+		let dyh = this.distance(q);
+
+		//replace d with r
+		let r = createVector(p.x, p.y);
+		r.x -= h;
+		let r_dxh = this.distance(r);
+		r.x += h;
+		r.y -= h;
+		let r_dyh = this.distance(r);
+
+		let n = createVector((dxh - r_dxh) / (2*h), (dyh - r_dyh) / (2*h)).normalize();
+		return n;
+		// return this.normalFD1(p); /// LIES!!! 1≠2
 	}
 	
 	// One-sided finite difference calculation.
