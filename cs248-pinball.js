@@ -18,6 +18,7 @@ function preload() {
 	bgImg = loadImage('rainbowStripes.jpg');
 }
 
+console.log("Compiled");
 
 function setup() {
 	// TRADITIONAL RECTANGLE SHAPE, BUT FEEL FREE TO DO SOMETHING ELSE:
@@ -69,21 +70,8 @@ function setup() {
 	//print("|obstacles|=" + obstacles.length);
 
 	ball = new Ball(BALL_RADIUS);
-	resetGame();
-
-}
-
-function resetGame() {
-	// BALL INITIAL CONDITIONS (MODIFY FOR YOUR GAME, e.g., for plunger)
-	ball.v.x = 0;
-	ball.v.y = -700;
-	
-	// ball.v.x = random(-400, -200);
-	// ball.v.y = random(-100, 100);
-	ball.p.x = width * 0.955;
-	ball.p.y = height * 0.8;
-	flipperL.resetFlipper();
-	flipperR.resetFlipper();
+	resetGame(ball, flipperL, flipperR);
+    
 }
 
 function draw() {
