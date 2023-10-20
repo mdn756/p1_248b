@@ -94,7 +94,7 @@ function timestep() {
 
 	if (ballIsInEndzone()) { // end turn
 		isPaused = true;
-		resetGame();
+		resetGame(ball, flipperL, flipperR);
 	}
 }
 
@@ -502,7 +502,7 @@ class RoundBox extends Obstacle {
 ///////////////////////////////////////
 class TriangleObstacle extends Obstacle {
 
-	/** Rect in RADIUS mode
+	/** Triangle
 	 * @param {p5.Vector} center Center of box.
 	 * @param {number} bx Half-width in X
 	 * @param {number} by Half-width in Y
@@ -519,7 +519,7 @@ class TriangleObstacle extends Obstacle {
 		push();
 		if (this.signMultiplier > 0) {
 			fill(this.color);
-			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y); // RADIUS MODE
+			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
 		}
 		pop();
 	}
@@ -621,12 +621,11 @@ class SDF {
 		let v1 = sub(p, p1);
 		let v2 = sub(p, p2);
 
-		let pq0 = sub(v0, e0*clamp( dot(v0,e0)/dot(e0,e0), 0.0, 1.0 ));
-		let pq1 = sub(v1, e1*clamp( dot(v1,e1)/dot(e1,e1), 0.0, 1.0 ));
-		let pq2 = sub(v2, e2*clamp( dot(v2,e2)/dot(e2,e2), 0.0, 1.0 ));
+		let pq0 = sub(v0, mult(e0,clamp( dot(v0,e0)/dot(e0,e0), 0.0, 1.0 )));
+		let pq1 = sub(v1, mult(e1,clamp( dot(v1,e1)/dot(e1,e1), 0.0, 1.0 )));
+		let pq2 = sub(v2, mult(e2,clamp( dot(v2,e2)/dot(e2,e2), 0.0, 1.0 )));
 
-		let s = e0.x*e2.y - e0.y*e2.x;
-		print(s);
+		let s = sign(e0.x*e2.y - e0.y*e2.x);
 		let s0 = createVector( dot( pq0, pq0 ), s*(v0.x*e0.y-v0.y*e0.x) );
 		let s1 = createVector( dot( pq1, pq1 ), s*(v1.x*e1.y-v1.y*e1.x) );
 		let s2 =  createVector( dot( pq2, pq2 ), s*(v2.x*e2.y-v2.y*e2.x) );
@@ -716,6 +715,13 @@ function vertexv2(p) {
 	vertex(p.x, p.y);
 }
 
+function mult(w, a) {
+	let v = createVector(0,0);
+	v.x = a * w.x;
+	v.y = a * w.y;
+	return v;
+}
+ 
 function acc(v, a, w) {
 	v.x += a * w.x;
 	v.y += a * w.y;
