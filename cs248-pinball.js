@@ -10,6 +10,7 @@ let obstacles;
 let ball;
 let flipperL, flipperR;
 let isPaused = true;
+let ballReset = true;
 let maxPenetrationDepth = 0; // nonnegative value for largest overlap
 
 let bgImg;
@@ -35,11 +36,12 @@ function setup() {
 
 	// REPLACE WITH YOUR MANY WONDERFUL OBSTACLES
 	obstacles = [];
-	for (let k = 0; k < 5; k++) {
+	for (let k = 0; k < 4; k++) {
 		let circleK = new CircleObstacle(createVector(random(0.2 * width, 0.8 * width), random(0.2 * height, 0.6 * height)), random(20 * s, 100 * s));
 		//circleK.setCOR(random(1));
 		circleK.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
-		circleK.setCOR(0.95);
+		circleK.setCOR(0.85);
+		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
 	}
 	
@@ -54,11 +56,11 @@ function setup() {
 	plungerWall.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
 	plungerWall.setCOR(0.95);	
 	obstacles.push(plungerWall);
-
+    
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.10 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, -PI * 1 / 4, +PI / 2, 6., 70); // 'f'
-		flipperR = new Flipper(vec2(0.8 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, +PI * 5 / 4, -PI / 2, 6., 74); // 'j'
+		flipperL = new Flipper(vec2(0.10 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, -PI * 1 / 4, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.8 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, +PI * 5 / 4, -PI / 2, 10., 39); // right arrow
 		obstacles.push(flipperL);
 		obstacles.push(flipperR);
 	}
@@ -75,12 +77,15 @@ function setup() {
 }
 
 function draw() {
-	if (keyIsDown(32)) {
+	if (keyIsDown(32) && ballReset) {
 		ball.p.y++;
 		ball.v.y -= 10;
+		isPaused = false;         
 	}
-	if (!isPaused && !keyIsDown(32))
-		timestep();
+	if (!isPaused && !ballReset) {
+		ballReset = false;
+		timestep(); 
+	}
 
 	drawScene();
 	//drawScore();
@@ -94,6 +99,7 @@ function timestep() {
 
 	if (ballIsInEndzone()) { // end turn
 		isPaused = true;
+		ballReset = true;
 		resetGame(ball, flipperL, flipperR);
 	}
 }
@@ -158,9 +164,15 @@ function distanceO(p) {
 }
 
 function keyPressed() {
-	if (key === ' ') {
+	if (key === 'p') {
 		isPaused = !isPaused;
 	}	
+}
+
+function keyReleased() {
+    if (key === ' ') {
+        ballReset = false;
+    }
 }
 
 ////////////////////////////////////////////////////////////

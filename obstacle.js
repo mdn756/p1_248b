@@ -6,6 +6,7 @@ class Obstacle {
 	constructor() {
 		this.signMultiplier = 1; //outside
 		this.COR = 1; //bouncy
+		this.energy = 0;
 		this.color = color("white");
 	}
 
@@ -95,6 +96,12 @@ class Obstacle {
 	setCOR(eps) {
 		this.COR = constrain(eps, 0, 1);
 	}
+	getEnergy() {
+		return this.energy; //eps
+	}
+	setEnergy(E) {
+		this.energy = E;
+	}
 	getColor() {
 		return this.color;
 	}
@@ -107,7 +114,7 @@ class Obstacle {
 // Flipper Obstacle (rotates!)
 ///////////////////////////////////////
 class Flipper extends Obstacle {
-
+  
 	/** Flipper based on unevenCapsule SDF
 	 * @param {p5.Vector} pivot point of flipper
 	 * @param {number} r1 Radius 1
@@ -117,14 +124,14 @@ class Flipper extends Obstacle {
 	constructor(pivot, r1, r2, h, angleRest, dAngleAction, speed, flipperKeyCode) {
 		super();
 		this.pivot = pivot;
-		this.r1 = r1;
+		this.r1 = r1;      
 		this.r2 = r2;
 		this.h = h;
 		this.angleRest = angleRest;
 		this.dAngleAction = dAngleAction;
 		this.speed = sign(dAngleAction) * abs(speed); // proper sign so that omega=speed moves it there.
 		this.flipperKeyCode = flipperKeyCode;
-		this.COR = 0.5; // tune as you want on (0,1]
+		this.COR = 0.1; // tune as you want on (0,1]
 		this.color = "DarkRed";
 		this.resetFlipper();
 	}
@@ -147,7 +154,7 @@ class Flipper extends Obstacle {
 			//print(this.flipperKeyCode+"  "+this.omega);
 		} else {
 			// MOVE DOWN UNTIL AT REST:
-			this.omega = -this.speed / 2; // slower
+			this.omega = -this.speed / 1.5; // slower
 		}
 		this.angleRad += this.omega * dt;
 

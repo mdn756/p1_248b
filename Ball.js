@@ -38,8 +38,12 @@ class Ball {
 			//isPaused = true;// DEBUG: PAUSE @ COLLISIONS
 			let eps = obstacle.getCOR();
 			vn *= -(1 + eps);
+			let normal = n;
 			n.mult(vn);
 			this.v.add(n);
+			let E = obstacle.getEnergy();
+			this.v.add(normal.mult(E));
+
 			// Tell obstacle it was hit:
 			obstacle.notifyOfCollision();
 
