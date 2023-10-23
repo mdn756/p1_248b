@@ -262,7 +262,9 @@ class CircleObstacle extends Obstacle {
 			circle(this.center.x, this.center.y, this.radius); // RADIUS MODE
 		}
 	}
-
+    notifyOfCollision() {
+		score = score + 10;
+	}
 	distance(p) {
 		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
 	}

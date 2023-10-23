@@ -1,7 +1,7 @@
 function resetGame(ball, flipperL, flipperR) {
 	// BALL INITIAL CONDITIONS (MODIFY FOR YOUR GAME, e.g., for plunger)
 	ball.v.x = 0;
-	ball.v.y = -700;
+	ball.v.y = -900;
 	
 	// ball.v.x = random(-400, -200);
 	// ball.v.y = random(-100, 100);

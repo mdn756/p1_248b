@@ -8,9 +8,12 @@ const FRAMERATE = 60; // Try a lower value, e.g., 10, to test ray-marching CCD
 
 let obstacles;
 let ball;
+let score = 0;
+let lives = 3;
 let flipperL, flipperR;
 let isPaused = true;
 let ballReset = true;
+let gameStatus = true; //false is game over
 let maxPenetrationDepth = 0; // nonnegative value for largest overlap
 
 let bgImg;
@@ -73,14 +76,16 @@ function setup() {
 
 	ball = new Ball(BALL_RADIUS);
 	resetGame(ball, flipperL, flipperR);
-    
 }
 
 function draw() {
-	if (keyIsDown(32) && ballReset) {
-		ball.p.y++;
-		ball.v.y -= 10;
-		isPaused = false;         
+	if (keyIsDown(32) && ballReset && gameStatus) {
+		if (ball.v.y > -2000) {
+			ball.p.y++;
+		    ball.v.y -= 10;
+		    isPaused = false;    
+		}
+		     
 	}
 	if (!isPaused && !ballReset) {
 		ballReset = false;
@@ -88,7 +93,11 @@ function draw() {
 	}
 
 	drawScene();
-	//drawScore();
+	updateScore(score);
+	updateLives(lives);
+	if (!gameStatus) {
+		gameText();
+	}
 }
 
 function timestep() {
@@ -100,7 +109,14 @@ function timestep() {
 	if (ballIsInEndzone()) { // end turn
 		isPaused = true;
 		ballReset = true;
+		if (lives > 0) {
+			lives = lives - 1;
+		}
+		else {
+			gameStatus = false;
+		}
 		resetGame(ball, flipperL, flipperR);
+		
 	}
 }
 
@@ -114,7 +130,7 @@ function drawScene() {
 	clear();
 	//background(180);
 	image(bgImg, 0, 0);
-
+    
 	noStroke();
 
 	if (keyIsPressed === true && key === 's')
@@ -166,6 +182,17 @@ function distanceO(p) {
 function keyPressed() {
 	if (key === 'p') {
 		isPaused = !isPaused;
+	}	
+}
+
+function keyPressed() {
+	if (key === 'n') {
+		isPaused = true;
+		gameStatus = true;
+		ballReset = true;
+		lives = 3;
+		score = 0;
+		resetGame(ball, flipperL, flipperR);
 	}	
 }
 
