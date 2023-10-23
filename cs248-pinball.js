@@ -19,7 +19,7 @@ let maxPenetrationDepth = 0; // nonnegative value for largest overlap
 let bgImg;
 
 function preload() {
-	bgImg = loadImage('rainbowStripes.jpg');
+	bgImg = loadImage('neon.jpg');
 }
 
 console.log("Compiled");
