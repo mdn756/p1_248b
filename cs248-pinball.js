@@ -19,7 +19,9 @@ let maxPenetrationDepth = 0; // nonnegative value for largest overlap
 let bgImg;
 
 function preload() {
+	//imageMode(CORNERS)
 	bgImg = loadImage('neon.jpg');
+	ufoImg = loadImage('ufo.png');
 }
 
 console.log("Compiled");
@@ -47,7 +49,12 @@ function setup() {
 		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
 	}
-	
+	let ufo = new UFOObstacle();
+	//circleK.setCOR(random(1));
+	ufo.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
+	ufo.setCOR(0.85);
+	obstacles.push(ufo);
+
 	// Corner
 	let triangle = new TriangleObstacle(createVector(width + 10, height + 10), createVector(0.8 * width, 0), createVector(width, 0), createVector(width, height * 0.1));
 	triangle.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
@@ -130,6 +137,7 @@ function drawScene() {
 	clear();
 	//background(180);
 	image(bgImg, 0, 0);
+	ufoImg.resize(100,100)
     
 	noStroke();
 

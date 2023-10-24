@@ -16,7 +16,9 @@ class Obstacle {
 	}
 
 	// OVERRIDE to draw object.
-	draw() {}
+	draw() {
+
+	}
 
 	// Called when the ball collides with this obstacle. Override to make it do something useful, e.g., scoring, sound, colors, etc.
 	notifyOfCollision() {}
@@ -264,6 +266,33 @@ class CircleObstacle extends Obstacle {
 	}
     notifyOfCollision() {
 		score = score + 10;
+	}
+	distance(p) {
+		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
+	}
+}
+
+///////////////////////////////////////
+// UFO OBSTACLE
+///////////////////////////////////////
+class UFOObstacle extends Obstacle {
+	constructor() {
+		super();
+		this.center = createVector(500, 500);
+		this.radius = 50;
+	}
+    
+	draw() {
+		if (this.signMultiplier > 0) {
+			//fill(this.color);
+			//circle(this.center.x, this.center.y, this.radius); // RADIUS MODE
+			imageMode(CENTER);
+			image(ufoImg, this.center.x - 10, this.center.y + 10);
+			imageMode(CORNER);
+		}
+	}
+    notifyOfCollision() {
+		score = score + 150;
 	}
 	distance(p) {
 		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
