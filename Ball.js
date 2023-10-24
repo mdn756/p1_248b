@@ -31,13 +31,48 @@ class Ball {
 		let d = distO[0] - this.r;
 		let n = obstacle.normal(this.p);
 		let vn = this.v.dot(n) - obstacle.velocity(this.p).dot(n);
-		this.highlight = (d < 0);
+		let time_remaining = dt;
+		while (time_remaining > 0) {
+			time_remaining -= this.raymarchTimestep(d, vn, obstacle, dt);
+		}
+	}
 
-		// If interpenetrating & not separating --> apply impulse
-		if (d < 0 && vn < 0) { // IMPACT!
-			//isPaused = true;// DEBUG: PAUSE @ COLLISIONS
+	raymarchTimestep(d, vn, obstacle, dt) {
+		// Raymarching
+		let v = this.v.copy();
+		let vHat = this.v.copy();
+		vHat.normalize();
+
+		let depthMax = this.v.mag() * dt  - this.r;
+		let p0 = this.p.copy();
+		const MAX_MARCHING_STEPS = 30;
+		const PRECISION = 0.001;
+		let depth = 0;
+		for (let i=0; i<MAX_MARCHING_STEPS; i++) {
+			vHat.mult(depth);
+			p0.add(vHat); // add delta v hat
+			let distO = distanceO(p0);
+			obstacle = distO[1];
+			let d = distO[0]; // max safe dist ball can move
+			depth += d; // walk along ray "d"
+			if (d < PRECISION + this.r) {
+				print("d<prec");
+				break;
+			}			
+			if (depth >= depthMax) {
+				acc(this.p, dt, this.v);
+				return dt;
+			}
+		
+		}
+		let n = obstacle.normal(p0);
+		vn = v.dot(n) - obstacle.velocity(v).dot(n);
+
+		if (vn < 0) {
+			// isPaused = true;
 			let eps = obstacle.getCOR();
 			vn *= -(1 + eps);
+			let n = obstacle.normal(p0);
 			let normal = n;
 			n.mult(vn);
 			this.v.add(n);
@@ -49,12 +84,14 @@ class Ball {
 
 			// DEBUG INTERPENETRATION:
 			maxPenetrationDepth = max(maxPenetrationDepth, abs(d));
-			print("maxPenetrationDepth: " + maxPenetrationDepth);
+			print("maxPenetrationDepth: " + maxPenetrationDepth);	
 		}
-		//print("dist = "+distO);
-
-		// Update position:
-		acc(this.p, dt, this.v); // p += dt*v
+		if (this.v.mag() != 0) {
+			let time = (depth-d)/(this.v.mag());
+			acc(this.p, time, this.v); 		// Update position:	// p += dt*v
+			return time;
+		}		
+		return dt;
 	}
 
 }
