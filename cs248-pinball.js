@@ -62,15 +62,25 @@ function setup() {
 	obstacles.push(triangle);	
 	
 	// Plunger Wall
-	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2);
+	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
 	plungerWall.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
 	plungerWall.setCOR(0.95);	
 	obstacles.push(plungerWall);
-    
+
+	// Lower Wall
+	let lowerWall_l = new RoundBox(createVector(width*.78, height * .702), width * 0.007, height * .1, PI*1.7/6)
+    lowerWall_l.setColor(color(255, 140, 0));
+	lowerWall_l.setCOR(0.1);	
+	obstacles.push(lowerWall_l);
+	let lowerWall_r = new RoundBox(createVector(width*.12, height * .702), width * 0.007, height * .1, -PI*1.7/6)
+    lowerWall_r.setColor(color(255, 140, 0));
+	lowerWall_r.setCOR(0.1);	
+	obstacles.push(lowerWall_r);
+
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.10 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, -PI * 1 / 4, +PI / 2, 10., 37); // left arrow
-		flipperR = new Flipper(vec2(0.8 * width, 0.79 * height), 40 * s, 20 * s, 200 * s, +PI * 5 / 4, -PI / 2, 10., 39); // right arrow
+		flipperL = new Flipper(vec2(0.25 * width, 0.79 * height), 17 * s, 10 * s, 100 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.65 * width, 0.79 * height), 17 * s, 10 * s, 100 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
 		obstacles.push(flipperL);
 		obstacles.push(flipperR);
 	}

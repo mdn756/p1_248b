@@ -308,9 +308,10 @@ class RoundBox extends Obstacle {
 	 * @param {number} bx Half-width in X
 	 * @param {number} by Half-width in Y
 	 */
-	constructor(center, bx, by) {
+	constructor(center, bx, by, angle) {
 		super();
 		this.center = center;
+		this.angle = angle;
 		this.bx = bx;
 		this.by = by;
 	}
@@ -320,7 +321,11 @@ class RoundBox extends Obstacle {
 		rectMode(RADIUS);
 		if (this.signMultiplier > 0) {
 			fill(this.color);
-			rect(this.center.x, this.center.y, this.bx, this.by, 100); // RADIUS MODE
+			translate(this.center.x, this.center.y);
+			rotate(this.angle);
+			
+			//rect(this.center.x, this.center.y, this.bx, this.by, 100); // RADIUS MODE
+			rect(0, 0, this.bx, this.by, 100); // RADIUS MODE
 		}
 		pop();
 	}
