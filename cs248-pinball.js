@@ -35,16 +35,19 @@ function setup() {
 	ellipseMode(RADIUS); // --> circle(x,y,r)
 
 	// RESIZING SCREEN SHOULDN'T CHANGE THE GAME LAYOUT, SO RECORD SCALE:
-	let s = width / 659; // scale factor to allow for different screen resolutions sizes
+	let s = width / 800; // scale factor to allow for different screen resolutions sizes
 	
 	BALL_RADIUS *= s;
 
 	// REPLACE WITH YOUR MANY WONDERFUL OBSTACLES
 	obstacles = [];
-	for (let k = 0; k < 4; k++) {
-		let circleK = new CircleObstacle(createVector(random(0.2 * width, 0.8 * width), random(0.2 * height, 0.6 * height)), random(20 * s, 100 * s));
+	bumper_locations = [createVector(width*.35, height*.5),
+		createVector(width*.55, height*.5),
+		createVector(width*.45, height*.4)];
+	for (let k = 0; k < 3; k++) {
+		let circleK = new CircleObstacle(bumper_locations[k], 45 * s);
 		//circleK.setCOR(random(1));
-		circleK.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
+		circleK.setColor(color(255, 140, 0));
 		circleK.setCOR(0.85);
 		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
@@ -63,7 +66,7 @@ function setup() {
 	
 	// Plunger Wall
 	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
-	plungerWall.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
+	plungerWall.setColor(color(255, 140, 0));
 	plungerWall.setCOR(0.95);	
 	obstacles.push(plungerWall);
 
@@ -100,7 +103,7 @@ function draw() {
 		if (ball.v.y > -2000) {
 			ball.p.y++;
 		    ball.v.y -= 10;
-		    isPaused = false;    
+		    isPaused = false;
 		}
 		     
 	}
@@ -270,7 +273,10 @@ class SDF {
 	static sdBox(p, b) {
 		let d = sub(absv2(p), b);
 		return length(maxv2(d, 0.0)) + min(max(d.x, d.y), 0.0);
-	}
+	} 
+	
+	
+	
 	
 	static sdTriangle(p, p0, p1, p2) {
 		let e0 = sub(p1, p0);
