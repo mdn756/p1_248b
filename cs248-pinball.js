@@ -202,6 +202,9 @@ function keyPressed() {
 		score = 0;
 		resetGame(ball, flipperL, flipperR);
 	}	
+	if (key === 'p') {
+		isPaused = !isPaused;
+	}
 }
 
 function keyReleased() {
