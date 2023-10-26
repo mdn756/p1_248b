@@ -47,7 +47,8 @@ function setup() {
 	for (let k = 0; k < 3; k++) {
 		let circleK = new CircleObstacle(bumper_locations[k], 45 * s);
 		//circleK.setCOR(random(1));
-		circleK.setColor(color(255, 140, 0));
+		circleK.setColor(color(250, 0, 250));
+		circleK.setStrokeColor(color(250, 160, 250));
 		circleK.setCOR(0.85);
 		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
@@ -60,23 +61,23 @@ function setup() {
 
 	// Corner
 	let triangle = new TriangleObstacle(createVector(width + 10, height + 10), createVector(0.8 * width, 0), createVector(width, 0), createVector(width, height * 0.1));
-	triangle.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
+	triangle.setColor(color(250, 0, 250));
 	triangle.setCOR(0.95);
 	obstacles.push(triangle);	
 	
 	// Plunger Wall
 	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
-	plungerWall.setColor(color(255, 140, 0));
+	plungerWall.setColor(color(0, 250, 250));
 	plungerWall.setCOR(0.95);	
 	obstacles.push(plungerWall);
 
 	// Lower Wall
 	let lowerWall_l = new RoundBox(createVector(width*.78, height * .702), width * 0.007, height * .1, PI*1.7/6)
-    lowerWall_l.setColor(color(255, 140, 0));
+    lowerWall_l.setColor(color(0, 250, 250));
 	lowerWall_l.setCOR(0.1);	
 	obstacles.push(lowerWall_l);
 	let lowerWall_r = new RoundBox(createVector(width*.12, height * .702), width * 0.007, height * .1, -PI*1.7/6)
-    lowerWall_r.setColor(color(255, 140, 0));
+    lowerWall_r.setColor(color(0, 250, 250));
 	lowerWall_r.setCOR(0.1);	
 	obstacles.push(lowerWall_r);
 
@@ -84,6 +85,8 @@ function setup() {
 	{
 		flipperL = new Flipper(vec2(0.25 * width, 0.79 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
 		flipperR = new Flipper(vec2(0.65 * width, 0.79 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
+		flipperL.setColor(color(225,225,0));
+		flipperR.setColor(color(225,225,0));
 		obstacles.push(flipperL);
 		obstacles.push(flipperR);
 	}

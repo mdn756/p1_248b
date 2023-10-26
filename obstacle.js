@@ -8,6 +8,7 @@ class Obstacle {
 		this.COR = 1; //bouncy
 		this.energy = 0;
 		this.color = color("white");
+		this.strokeColor = color("white");
 	}
 
 	// Negates SDF to flip inside/outside.
@@ -109,6 +110,9 @@ class Obstacle {
 	}
 	setColor(c) {
 		this.color = c;
+	}
+	setStrokeColor(c) {
+		this.strokeColor = c;
 	}
 }
 
@@ -260,8 +264,12 @@ class CircleObstacle extends Obstacle {
 
 	draw() {
 		if (this.signMultiplier > 0) {
+			push();
 			fill(this.color);
+			stroke(this.strokeColor);
+			strokeWeight(10);
 			circle(this.center.x, this.center.y, this.radius); // RADIUS MODE
+			pop();
 		}
 	}
     notifyOfCollision() {
