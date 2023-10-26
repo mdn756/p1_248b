@@ -17,6 +17,7 @@ let gameStatus = true; //false is game over
 let maxPenetrationDepth = 0; // nonnegative value for largest overlap
 let powImageVisible = false;
 let powImageStartTime;
+let portalTime = 0;
 let ufo_pos;
 let img_select;
 
@@ -175,25 +176,32 @@ function timestep() {
 
 function ballIsInPortal() {
 	// SIMPLE CHECK FOR NOW:
-	if (ball.p.x <= ball.r*1.5) {
-		if ((ball.p.y < height*0.2) && (ball.p.y > height*0.1)){
-			print("true");
-			ball.p.y = height*0.55;
-			ball.p.x = width * 0.90-ball.r;
-			let vx = ball.v.x;
-			ball.v.x = -vx;
-			return;
+	let currentTime = millis();
+	let elapsedTime = currentTime - portalTime;
+	// Display the powImg
+	if (elapsedTime > 400) {
+		if (ball.p.x <= ball.r*1.5) {
+			if ((ball.p.y < height*0.2) && (ball.p.y > height*0.1)){
+				print("true");
+				ball.p.y = height*0.55;
+				ball.p.x = width * 0.90-ball.r;
+				let vx = ball.v.x;
+				ball.v.x = -vx;
+				portalTime = millis();
+				return;
+			}
 		}
-	}
-	if ((ball.p.x + ball.r >= width * 0.90-ball.r) && (ball.p.x - ball.r <= width * 0.90-ball.r)) {
-		if (ball.p.y > height*0.5 && ball.p.y < height*0.6){
-			print("ball.py"+ball.p.y);
-			print("true2");
-			ball.p.y = height*0.15;
-			ball.p.x = ball.r;
-			let vx = ball.v.x;
-			ball.v.x = -vx;
-			return;
+		if ((ball.p.x + ball.r >= width * 0.90-ball.r) && (ball.p.x - ball.r <= width * 0.90-ball.r)) {
+			if (ball.p.y > height*0.5 && ball.p.y < height*0.6){
+				print("ball.py"+ball.p.y);
+				print("true2");
+				ball.p.y = height*0.15;
+				ball.p.x = ball.r;
+				let vx = ball.v.x;
+				ball.v.x = -vx;
+				portalTime = millis();
+				return;
+			}
 		}
 	}
 }
