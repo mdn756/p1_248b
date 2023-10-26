@@ -41,9 +41,9 @@ function setup() {
 
 	// REPLACE WITH YOUR MANY WONDERFUL OBSTACLES
 	obstacles = [];
-	bumper_locations = [createVector(width*.35, height*.5),
-		createVector(width*.55, height*.5),
-		createVector(width*.45, height*.4)];
+	bumper_locations = [createVector(width*.25, height*.5),
+		createVector(width*.65, height*.5),
+		createVector(width*.45, height*.3)];
 	for (let k = 0; k < 3; k++) {
 		let circleK = new CircleObstacle(bumper_locations[k], 45 * s);
 		//circleK.setCOR(random(1));
@@ -82,8 +82,8 @@ function setup() {
 
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.25 * width, 0.79 * height), 17 * s, 10 * s, 100 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
-		flipperR = new Flipper(vec2(0.65 * width, 0.79 * height), 17 * s, 10 * s, 100 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
+		flipperL = new Flipper(vec2(0.25 * width, 0.79 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.65 * width, 0.79 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
 		obstacles.push(flipperL);
 		obstacles.push(flipperR);
 	}
@@ -126,6 +126,8 @@ function timestep() {
 	flipperR.timestep(dt);
 	ball.timestep(dt);
 
+	ballIsInPortal();
+
 	if (ballIsInEndzone()) { // end turn
 		isPaused = true;
 		ballReset = true;
@@ -137,6 +139,31 @@ function timestep() {
 		}
 		resetGame(ball, flipperL, flipperR);
 		
+	}
+}
+
+function ballIsInPortal() {
+	// SIMPLE CHECK FOR NOW:
+	// print(ball.p.x);
+	if (ball.p.x <= 11) {
+		print("ball.py"+ball.p.y);
+		if ((ball.p.y >= height*0.2)&&(ball.p.y<=height*0.1)){
+			print("true");
+			ball.p.y = height*0.55;
+			ball.p.x = width * 0.90-10;
+			let vx = ball.v.x;
+			ball.v.x = -vx;
+		}
+	}
+	if (ball.p.x + 20 >= width * 0.90-10 && ball.p.x - 20 <= width * 0.90-10) {
+		if (ball.p.y > height*0.5 && ball.p.y < height*0.6){
+			print("ball.py"+ball.p.y);
+			print("true2");
+			ball.p.y = height*0.15;
+			ball.p.x = 20;
+			let vx = ball.v.x;
+			ball.v.x = -vx;
+		}
 	}
 }
 
@@ -163,7 +190,10 @@ function drawScene() {
 		for (let i = 0; i < obstacles.length; i++)
 			obstacles[i].draw();
 	}
-
+	let portal_a = new Portal(10, height*0.2, 10, height*0.1);
+	portal_a.draw();
+	let portal_b = new Portal(width * 0.90-10, height*0.5, width * 0.90-10, height*0.6);
+	portal_b.draw();
 	ball.draw();
 }
 
