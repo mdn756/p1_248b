@@ -15,6 +15,10 @@ let isPaused = true;
 let ballReset = true;
 let gameStatus = true; //false is game over
 let maxPenetrationDepth = 0; // nonnegative value for largest overlap
+let powImageVisible = false;
+let powImageStartTime;
+let ufo_pos;
+let img_select;
 
 let bgImg;
 
@@ -22,6 +26,8 @@ function preload() {
 	//imageMode(CORNERS)
 	bgImg = loadImage('neon.jpg');
 	ufoImg = loadImage('ufo.png');
+	powImg = loadImage('pow.png');
+	bamImg = loadImage('bam.png');
 }
 
 console.log("Compiled");
@@ -53,9 +59,9 @@ function setup() {
 		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
 	}
-	let ufo = new UFOObstacle();
+	ufo_pos = createVector(width*.5, height*.25)
+	let ufo = new UFOObstacle(ufo_pos);
 	//circleK.setCOR(random(1));
-	ufo.setColor(color(random(0, 255), random(0, 255), random(0, 255)));
 	ufo.setCOR(0.85);
 	obstacles.push(ufo);
 
@@ -121,6 +127,28 @@ function draw() {
 	if (!gameStatus) {
 		gameText();
 	}
+	if (powImageVisible) {
+        let currentTime = millis();
+        let elapsedTime = currentTime - powImageStartTime;
+
+		if (img_select < 0.5) {
+			currentImg = powImg;
+		} else {
+			currentImg = bamImg;
+		}
+
+        // Display the powImg
+        if (elapsedTime < 400) {
+			push();
+			imageMode(CENTER);
+			let scaleF = .35;
+            scale(scaleF);
+            image(currentImg, ufo_pos.x/scaleF, ufo_pos.y/scaleF);
+			pop();
+        } else {
+            powImageVisible = false; // Hide the powImg 
+        }
+    }
 }
 
 function timestep() {
@@ -181,7 +209,7 @@ function drawScene() {
 	//background(180);
 	image(bgImg, 0, 0);
 	ufoImg.resize(100,100)
-    
+    //powImg.resize(200,100)
 	noStroke();
 
 	if (keyIsPressed === true && key === 's')

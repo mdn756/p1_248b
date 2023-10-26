@@ -284,9 +284,9 @@ class CircleObstacle extends Obstacle {
 // UFO OBSTACLE
 ///////////////////////////////////////
 class UFOObstacle extends Obstacle {
-	constructor() {
+	constructor(center) {
 		super();
-		this.center = createVector(500, 500);
+		this.center = center;
 		this.radius = 50;
 	}
     
@@ -301,6 +301,9 @@ class UFOObstacle extends Obstacle {
 	}
     notifyOfCollision() {
 		score = score + 150;
+		powImageVisible = true;
+    	powImageStartTime = millis();
+		img_select = random(1);
 	}
 	distance(p) {
 		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
