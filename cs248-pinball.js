@@ -141,9 +141,9 @@ function draw() {
         if (elapsedTime < 400) {
 			push();
 			imageMode(CENTER);
-			let scaleF = .35;
+			let scaleF = .30;
             scale(scaleF);
-            image(currentImg, ufo_pos.x/scaleF, ufo_pos.y/scaleF);
+            image(currentImg, ufo_pos.x/scaleF + random(-width*.05, width * .05), ufo_pos.y/scaleF + random(-width*.05, width * .05));
 			pop();
         } else {
             powImageVisible = false; // Hide the powImg 
@@ -176,8 +176,10 @@ function timestep() {
 function ballIsInPortal() {
 	// SIMPLE CHECK FOR NOW:
 	// print(ball.p.x);
+	
 	if (ball.p.x <= 11) {
 		print("ball.py"+ball.p.y);
+		score = score + 999;
 		if ((ball.p.y >= height*0.2)&&(ball.p.y<=height*0.1)){
 			print("true");
 			ball.p.y = height*0.55;
@@ -208,8 +210,7 @@ function drawScene() {
 	clear();
 	//background(180);
 	image(bgImg, 0, 0);
-	ufoImg.resize(100,100)
-    //powImg.resize(200,100)
+	ufoImg.resize(width / 9.5333,height/14.3)
 	noStroke();
 
 	if (keyIsPressed === true && key === 's')
