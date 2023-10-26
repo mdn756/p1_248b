@@ -175,27 +175,25 @@ function timestep() {
 
 function ballIsInPortal() {
 	// SIMPLE CHECK FOR NOW:
-	// print(ball.p.x);
-	
-	if (ball.p.x <= 11) {
-		print("ball.py"+ball.p.y);
-		score = score + 999;
-		if ((ball.p.y >= height*0.2)&&(ball.p.y<=height*0.1)){
+	if (ball.p.x <= ball.r*1.5) {
+		if ((ball.p.y < height*0.2) && (ball.p.y > height*0.1)){
 			print("true");
 			ball.p.y = height*0.55;
-			ball.p.x = width * 0.90-10;
+			ball.p.x = width * 0.90-ball.r;
 			let vx = ball.v.x;
 			ball.v.x = -vx;
+			return;
 		}
 	}
-	if (ball.p.x + 20 >= width * 0.90-10 && ball.p.x - 20 <= width * 0.90-10) {
+	if ((ball.p.x + ball.r >= width * 0.90-ball.r) && (ball.p.x - ball.r <= width * 0.90-ball.r)) {
 		if (ball.p.y > height*0.5 && ball.p.y < height*0.6){
 			print("ball.py"+ball.p.y);
 			print("true2");
 			ball.p.y = height*0.15;
-			ball.p.x = 20;
+			ball.p.x = ball.r;
 			let vx = ball.v.x;
 			ball.v.x = -vx;
+			return;
 		}
 	}
 }
@@ -222,9 +220,9 @@ function drawScene() {
 		for (let i = 0; i < obstacles.length; i++)
 			obstacles[i].draw();
 	}
-	let portal_a = new Portal(10, height*0.2, 10, height*0.1);
+	let portal_a = new Portal(ball.r, height*0.2, ball.r, height*0.1);
 	portal_a.draw();
-	let portal_b = new Portal(width * 0.90-10, height*0.5, width * 0.90-10, height*0.6);
+	let portal_b = new Portal(width * 0.90-ball.r, height*0.5, width * 0.90-ball.r, height*0.6);
 	portal_b.draw();
 	ball.draw();
 }
