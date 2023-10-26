@@ -329,9 +329,16 @@ class RoundBox extends Obstacle {
 		}
 		pop();
 	}
-
+    /* distance(p) {
+		let v = p5.Vector.sub(p, this.center).rotate(-this.angle); // Rotate v in the opposite direction
+    	let a = 2 * this.bx;
+    	let b = 2 * this.by;
+    	let r = min(this.bx, this.by);
+		return this.signMultiplier * SDF.sdRBox(v, a, b, r);
+	} */
 	distance(p) {
 		let v = p5.Vector.sub(p, this.center); // p-c
+		v.rotate(-this.angle)
 		return this.signMultiplier * SDF.sdBox(v, vec2(this.bx, this.by));
 	}
 }

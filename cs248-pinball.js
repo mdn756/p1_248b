@@ -264,6 +264,7 @@ class SDF {
 	static sdCircle(p, r) {
 		return length(p) - r;
 	}
+
 	/**
 	 * SDF of a box at origin
 	 * @param {p5.Vector} p Evaluation point
@@ -274,6 +275,16 @@ class SDF {
 		let d = sub(absv2(p), b);
 		return length(maxv2(d, 0.0)) + min(max(d.x, d.y), 0.0);
 	} 
+
+	static sdRBox(p, a, b, r) {
+		let ba = createVector(b.x - a.x, b.y - a.y);
+		let pa = createVector(p.x - a.x, p.y - a.y);
+		let h = constrain(pa.dot(ba) / ba.magSq(), 0, 1);
+		let q = p5.Vector.sub(pa, ba.mult(h));
+		let d = q.mag() - r;  // Subtract the radius from the distance
+		return d;
+	}
+	
 	
 	
 	
