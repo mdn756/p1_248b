@@ -71,6 +71,17 @@ function setup() {
 	triangle.setColor(color(250, 0, 250));
 	triangle.setCOR(0.95);
 	obstacles.push(triangle);	
+
+	//Sling
+	let sling_l = new TriangleObstacle(createVector(width*.25+10, height*.25+10), createVector(width*.09, height*.45), createVector(width*.09, height*.6), createVector(width*.25, height * .69));
+	sling_l.setColor(color(250, 0, 250));
+	sling_l.setCOR(0.1);
+	obstacles.push(sling_l);
+
+	let sling_r = new TriangleObstacle(createVector(width*.25+10, height*.25+10), createVector(width*.81, height*.45), createVector(width*.81, height*.6), createVector(width*.65, height * .69));
+	sling_r.setColor(color(250, 0, 250));
+	sling_r.setCOR(0.1);
+	obstacles.push(sling_r);
 	
 	// Plunger Wall
 	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
