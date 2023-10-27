@@ -102,8 +102,8 @@ function setup() {
 
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.25 * width, 0.89 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
-		flipperR = new Flipper(vec2(0.65 * width, 0.89 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
+		flipperL = new Flipper(vec2(0.24 * width, 0.87 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.66 * width, 0.87 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
 		flipperL.setColor(color(225,225,0));
 		flipperR.setColor(color(225,225,0));
 		obstacles.push(flipperL);
