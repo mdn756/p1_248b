@@ -249,6 +249,8 @@ function drawScene() {
 	image(bgImg, 0, 0, min(windowWidth, windowHeight / 1.5), windowHeight);
 	ufoImg.resize(width / 9.5333,height/14.3)
 	zomImg.resize(width/1.4, height/1.7)
+	powImg.resize(width/2, height/3)
+	bamImg.resize(width/2, height/3)
 	zomflipImg.resize(width/1.4, height/1.7)
 	//ufoImg.resize
 	noStroke();
