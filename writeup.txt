@@ -12,7 +12,7 @@ Features:
     Portal -- ball is able to teleport across the screen depending on its position
     Slingshot -- created triangle sdf, adds energy
     Targets -- change color, points the target scores
-    UFO: funny effect 
+    UFO: cool effect 
     Bottom wall -- ball rolls down to flipper like in a real pinball machine
 
 Use right and left keys to move the flipper, p to pause, n to start new game
