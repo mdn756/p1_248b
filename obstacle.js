@@ -386,6 +386,36 @@ class TriangleObstacle extends Obstacle {
 	}
 }
 
+class SlingObstacle extends Obstacle {
+		/** Triangle
+	 * @param {p5.Vector} center Center of box.
+	 * @param {number} bx Half-width in X
+	 * @param {number} by Half-width in Y
+	 */
+		constructor(p, p0, p1, p2) {
+			super();
+			this.p = p;
+			this.p0 = p0;
+			this.p1 = p1;
+			this.p2 = p2;
+		}
+
+	draw() {
+		push();
+		if (this.signMultiplier > 0) {
+			fill(this.color);
+			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+			scale(.5)
+			image(zomImg, this.p.x , this.p.y);
+		}
+		pop();
+	}
+	distance(p) {
+		let v = p5.Vector.sub(p, this.center); // p-c
+		return this.signMultiplier * SDF.sdTriangle(v, this.p0, this.p1, this.p2);
+	}
+}
+
 ///////////////////////////////////////
 // Axis-Aligned BOX OBSTACLE
 ///////////////////////////////////////

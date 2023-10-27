@@ -29,6 +29,7 @@ function preload() {
 	ufoImg = loadImage('ufo.png');
 	powImg = loadImage('pow.png');
 	bamImg = loadImage('bam.png');
+	zomImg = loadImage('zom.webp');
 }
 
 console.log("Compiled");
@@ -73,12 +74,12 @@ function setup() {
 	obstacles.push(triangle);	
 
 	//Sling
-	let sling_l = new TriangleObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.09, height*.55), createVector(width*.09, height*.7), createVector(width*.25, height * .79));
+	let sling_l = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.09, height*.55), createVector(width*.09, height*.7), createVector(width*.25, height * .79));
 	sling_l.setColor(color(250, 0, 250));
 	sling_l.setCOR(0.1);
 	obstacles.push(sling_l);
 
-	let sling_r = new TriangleObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.81, height*.55), createVector(width*.81, height*.7), createVector(width*.65, height * .79));
+	let sling_r = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.81, height*.55), createVector(width*.81, height*.7), createVector(width*.65, height * .79));
 	sling_r.setColor(color(250, 0, 250));
 	sling_r.setCOR(0.1);
 	obstacles.push(sling_r);
