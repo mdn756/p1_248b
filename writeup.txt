@@ -1,14 +1,17 @@
-Plunger -- depends on how long the space bar is pressed to launch the ball
+Plunger -- depends on how long the space bar is pressed to launch the ball.
+           if you don't hold enough you'll lose a life. It's a feature to 
+           encourage patience :)
 Playfield -- limited to rectangle/triangle in corner
 
 
 Portal -- ball is able to teleport across the screen depending on its position
-Slingshot -- create triangle sdf
-Targets -- change color
-Arc -- 
+Slingshot -- create triangle sdf, sling part adds energy
+Targets -- change color.
+UFO: cool hit effect
 
-Score --
-Lives -- 
+
+Score -- keeps track of score
+Lives -- keeps track of lives
 Restart game
 
 Use right and left keys to move the flipper, p to pause, n to start new game
