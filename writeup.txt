@@ -15,4 +15,5 @@ Features:
 
 Use right and left keys to move the flipper, p to pause, n to start new game
 
-Bugs: modeling rounded box sdf and arc sdf (decided to omit), raymarching code (difficult!)
+Bugs: modeling rounded box sdf and arc sdf (decided to omit), raymarching code (difficult dealing with negative "d"!),
+ball stuck between both portals (need to use time variable to wait before checking if ball is in the next portal)
