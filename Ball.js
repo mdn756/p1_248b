@@ -12,9 +12,9 @@ class Ball {
 	draw() {
 		stroke(0);
 		if (this.highlight)
-			fill(255, 0, 0);
+			fill(255, 255, 255);
 		else
-			fill(128);
+			fill("white");
 
 		circle(this.p.x, this.p.y, this.r);
 	}

@@ -1,6 +1,17 @@
-Portal -- ball is able to teleport across the screen depending on its position
 Plunger -- depends on how long the space bar is pressed to launch the ball
 Playfield -- limited to rectangle/triangle in corner
-Slingshot -- 
 
+
+Portal -- ball is able to teleport across the screen depending on its position
+Slingshot -- create triangle sdf
+Targets -- change color
+Arc -- 
+
+Score --
+Lives -- 
+Restart game
+
+Use right and left keys to move the flipper, p to pause, n to start new game
+
+Bugs: modeling rounded box sdf
 TODO: numbers on the obstacles/bumpers
