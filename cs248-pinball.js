@@ -46,7 +46,7 @@ function setup() {
 	let s = width / 800; // scale factor to allow for different screen resolutions sizes
 	
 	BALL_RADIUS *= s;
-
+	zomImg.resize(zomImg.width*1.1, zomImg.height);
 	// REPLACE WITH YOUR MANY WONDERFUL OBSTACLES
 	obstacles = [];
 	bumper_locations = [createVector(width*.25, height*.5),
@@ -58,11 +58,11 @@ function setup() {
 		circleK.setColor(color(250, 0, 250));
 		circleK.setStrokeColor(color(250, 160, 250));
 		circleK.setCOR(0.85);
-		circleK.setEnergy(.1); //energy modeled as just adding the unit normal multiplied by some scalar
+		circleK.setEnergy(1000); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
 	}
 	ufo_pos = createVector(width*.5, height*.25)
-	let ufo = new UFOObstacle(ufo_pos);
+	let ufo = new UFOObstacle(ufo_pos, s);
 	//circleK.setCOR(random(1));
 	ufo.setCOR(0.85);
 	obstacles.push(ufo);
@@ -229,6 +229,7 @@ function drawScene() {
 	//background(180);
 	image(bgImg, 0, 0);
 	ufoImg.resize(width / 9.5333,height/14.3)
+	//ufoImg.resize
 	noStroke();
 
 	if (keyIsPressed === true && key === 's')

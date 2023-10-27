@@ -284,10 +284,10 @@ class CircleObstacle extends Obstacle {
 // UFO OBSTACLE
 ///////////////////////////////////////
 class UFOObstacle extends Obstacle {
-	constructor(center) {
+	constructor(center, s) {
 		super();
 		this.center = center;
-		this.radius = 50;
+		this.radius = s*45;
 	}
     
 	draw() {
@@ -407,8 +407,8 @@ class SlingObstacle extends Obstacle {
 			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
 			let scaleF = .45;
 			scale(scaleF)
-			translate(this.p2.x  / scaleF - width*.54, this.p2.y / scaleF- height*.55)
-			rotate(-PI*.07)
+			translate(this.p2.x  / scaleF - width*.68, this.p2.y / scaleF- height*.5)
+			rotate(-PI*.09)
 			image(zomImg, 0, 0);
 		}
 		pop();

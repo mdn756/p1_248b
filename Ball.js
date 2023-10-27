@@ -44,8 +44,10 @@ class Ball {
 				if (vn < 0) {
 					let eps = obstacle.getCOR();
 					vn *= -(1 + eps);
+					let energyVector = n.copy().mult(obstacle.getEnergy());
 					n.mult(vn);
 					this.v.add(n);
+					this.v.add(energyVector)
 					obstacle.notifyOfCollision();
 				}
 				if (time_remaining>0){
