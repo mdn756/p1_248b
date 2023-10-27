@@ -1,0 +1,6 @@
+Portal -- ball is able to teleport across the screen depending on its position
+Plunger -- depends on how long the space bar is pressed to launch the ball
+Playfield -- limited to rectangle/triangle in corner
+Slingshot -- 
+
+TODO: numbers on the obstacles/bumpers

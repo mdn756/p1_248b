@@ -73,12 +73,12 @@ function setup() {
 	obstacles.push(triangle);	
 
 	//Sling
-	let sling_l = new TriangleObstacle(createVector(width*.25+10, height*.25+10), createVector(width*.09, height*.45), createVector(width*.09, height*.6), createVector(width*.25, height * .69));
+	let sling_l = new TriangleObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.09, height*.55), createVector(width*.09, height*.7), createVector(width*.25, height * .79));
 	sling_l.setColor(color(250, 0, 250));
 	sling_l.setCOR(0.1);
 	obstacles.push(sling_l);
 
-	let sling_r = new TriangleObstacle(createVector(width*.25+10, height*.25+10), createVector(width*.81, height*.45), createVector(width*.81, height*.6), createVector(width*.65, height * .69));
+	let sling_r = new TriangleObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.81, height*.55), createVector(width*.81, height*.7), createVector(width*.65, height * .79));
 	sling_r.setColor(color(250, 0, 250));
 	sling_r.setCOR(0.1);
 	obstacles.push(sling_r);
@@ -90,19 +90,19 @@ function setup() {
 	obstacles.push(plungerWall);
 
 	// Lower Wall
-	let lowerWall_l = new RoundBox(createVector(width*.78, height * .702), width * 0.007, height * .1, PI*1.7/6)
+	let lowerWall_l = new RoundBox(createVector(width*.78, height * .802), width * 0.007, height * .1, PI*1.7/6)
     lowerWall_l.setColor(color(0, 250, 250));
 	lowerWall_l.setCOR(0.1);	
 	obstacles.push(lowerWall_l);
-	let lowerWall_r = new RoundBox(createVector(width*.12, height * .702), width * 0.007, height * .1, -PI*1.7/6)
+	let lowerWall_r = new RoundBox(createVector(width*.12, height * .802), width * 0.007, height * .1, -PI*1.7/6)
     lowerWall_r.setColor(color(0, 250, 250));
 	lowerWall_r.setCOR(0.1);	
 	obstacles.push(lowerWall_r);
 
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.25 * width, 0.79 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
-		flipperR = new Flipper(vec2(0.65 * width, 0.79 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
+		flipperL = new Flipper(vec2(0.25 * width, 0.89 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.65 * width, 0.89 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
 		flipperL.setColor(color(225,225,0));
 		flipperR.setColor(color(225,225,0));
 		obstacles.push(flipperL);
