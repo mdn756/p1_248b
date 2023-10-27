@@ -260,6 +260,9 @@ class CircleObstacle extends Obstacle {
 		super();
 		this.center = center;
 		this.radius = radius;
+		this.hit = false;
+		this.text = "";
+		this.time = deltaTime;
 	}
 
 	draw() {
@@ -270,13 +273,58 @@ class CircleObstacle extends Obstacle {
 			strokeWeight(10);
 			circle(this.center.x, this.center.y, this.radius); // RADIUS MODE
 			pop();
+			push();
+			textAlign(LEFT);
+			textSize(width*.05);
+			fill(255, 200, 0);	
+			text(this.text, this.center.x-(width*0.05), this.center.y);
+			pop();
+		}
+	}
+    notifyOfCollision() {
+		score = score + 10;
+		let beige = color(244, 221, 181);
+		this.text = "+10";
+		if (this.hit) {
+			this.color = beige;
+		}
+		else {
+			this.color = color(210, 76, 58);
+		}
+		this.hit=!this.hit;
+	}
+	distance(p) {
+		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
+	}
+}
+
+class ArcObstacle extends Obstacle {
+	constructor(x, y, w, h, start, stop) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+		this.start = start;
+		this.stop = stop;
+	}
+
+	draw() {
+		if (this.signMultiplier > 0) {
+			push();
+			noFill();
+			stroke(this.strokeColor);
+			strokeWeight(10);
+			arc(this.x, this.y, this.w, this.h, this.start, this.stop); // RADIUS MODE
+			pop();
 		}
 	}
     notifyOfCollision() {
 		score = score + 10;
 	}
-	distance(p) {
-		return this.signMultiplier * SDF.sdCircle(sub(p, this.center), this.radius);
+	distance() {
+		let p =createVector(this.x, this.y);
+		return this.signMultiplier * SDF.sdArc(p);
 	}
 }
 

@@ -57,8 +57,20 @@ class SDF {
 		let d = q.mag() - r;  // Subtract the radius from the distance
 		return d;
 	}
+
 	
-	
+	static sdArc(p) {
+        let s = 0.9;
+        let c = 0.44;
+        let sc = createVector(s,c);
+        p.x = abs(p.x);
+        if (c*p.x>s*p.y){
+            return length(sub(p,mult(sc, 1)))
+        } 
+        else {
+            return abs(length(p)-1)-0.1;
+        }
+	}
 	
 	
 	

@@ -25,7 +25,7 @@ let bgImg;
 
 function preload() {
 	//imageMode(CORNERS)
-	bgImg = loadImage('neon.jpg');
+	bgImg = loadImage('spacebg.jpg');
 	ufoImg = loadImage('ufo.png');
 	powImg = loadImage('pow.png');
 	bamImg = loadImage('bam.png');
@@ -57,8 +57,8 @@ function setup() {
 	for (let k = 0; k < 3; k++) {
 		let circleK = new CircleObstacle(bumper_locations[k], 45 * s);
 		//circleK.setCOR(random(1));
-		circleK.setColor(color(250, 0, 250));
-		circleK.setStrokeColor(color(250, 160, 250));
+		circleK.setColor(color(210, 76, 58));
+		circleK.setStrokeColor(color(240, 106, 88));
 		circleK.setCOR(0.85);
 		//circleK.setEnergy(500); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
@@ -71,9 +71,13 @@ function setup() {
 
 	// Corner
 	let triangle = new TriangleObstacle(createVector(width + 10, height + 10), createVector(0.8 * width, 0), createVector(width, 0), createVector(width, height * 0.1));
-	triangle.setColor(color(250, 0, 250));
+	triangle.setColor(color(244, 221, 181));
 	triangle.setCOR(0.95);
 	obstacles.push(triangle);	
+
+	// let arc = new ArcObstacle(width*0.5, height*0.3, 60, 60, HALF_PI, PI);
+	// arc.setColor(color(250, 0, 250));
+	// obstacles.push(arc);	
 
 	//Sling
     let sling_bounce_l = new RoundBox(createVector(width*.19, height * .65), width * 0.007, height * .12, -PI/10)
@@ -101,26 +105,26 @@ function setup() {
 	
 	// Plunger Wall
 	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
-	plungerWall.setColor(color(0, 250, 250));
+	plungerWall.setColor(color(78, 151, 183));
 	plungerWall.setCOR(0.95);	
 	obstacles.push(plungerWall);
 
 	// Lower Wall
 	let lowerWall_l = new RoundBox(createVector(width*.78, height * .802), width * 0.007, height * .1, PI*1.7/6)
-    lowerWall_l.setColor(color(0, 250, 250));
+    lowerWall_l.setColor(color(78, 151, 183));
 	lowerWall_l.setCOR(0.1);	
 	obstacles.push(lowerWall_l);
 	let lowerWall_r = new RoundBox(createVector(width*.12, height * .802), width * 0.007, height * .1, -PI*1.7/6)
-    lowerWall_r.setColor(color(0, 250, 250));
+    lowerWall_r.setColor(color(78, 151, 183));
 	lowerWall_r.setCOR(0.1);	
 	obstacles.push(lowerWall_r);
 
 	// SETUP FLIPPERS: (pivot, r1, r2, h, angleRest, dAngleAction, speed[rad/s], key)
 	{
-		flipperL = new Flipper(vec2(0.25 * width, 0.89 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
-		flipperR = new Flipper(vec2(0.65 * width, 0.89 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
-		flipperL.setColor(color(225,225,0));
-		flipperR.setColor(color(225,225,0));
+		flipperL = new Flipper(vec2(0.24 * width, 0.87 * height), 18 * s, 10 * s, 150 * s, -PI * 1 / 5, +PI / 2, 10., 37); // left arrow
+		flipperR = new Flipper(vec2(0.66 * width, 0.87 * height), 17 * s, 10 * s, 150 * s, +PI * 6 / 5, -PI / 2, 10., 39); // right arrow
+		flipperL.setColor(color(210, 76, 58));
+		flipperR.setColor(color(210, 76, 58));
 		obstacles.push(flipperL);
 		obstacles.push(flipperR);
 	}
@@ -242,7 +246,7 @@ function ballIsInEndzone() {
 function drawScene() {
 	clear();
 	//background(180);
-	image(bgImg, 0, 0);
+	image(bgImg, 0, 0, min(windowWidth, windowHeight / 1.5), windowHeight);
 	ufoImg.resize(width / 9.5333,height/14.3)
 	//ufoImg.resize
 	noStroke();
@@ -296,11 +300,6 @@ function distanceO(p) {
 	return minDistO;
 }
 
-function keyPressed() {
-	if (key === 'p') {
-		isPaused = !isPaused;
-	}	
-}
 
 function keyPressed() {
 	if (key === 'n') {
