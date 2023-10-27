@@ -223,7 +223,7 @@ function ballIsInPortal() {
 			}
 		}
 		if ((ball.p.x + ball.r >= width * 0.90-ball.r) && (ball.p.x - ball.r <= width * 0.90-ball.r)) {
-			if (ball.p.y > height*0.5 && ball.p.y < height*0.6){
+			if (ball.p.y > height*0.4 && ball.p.y < height*0.5){
 				print("ball.py"+ball.p.y);
 				print("true2");
 				ball.p.y = height*0.15;
@@ -264,7 +264,7 @@ function drawScene() {
 	}
 	let portal_a = new Portal(ball.r, height*0.2, ball.r, height*0.1);
 	portal_a.draw();
-	let portal_b = new Portal(width * 0.90-ball.r, height*0.5, width * 0.90-ball.r, height*0.6);
+	let portal_b = new Portal(width * 0.90-ball.r, height*0.4, width * 0.90-ball.r, height*0.5);
 	portal_b.draw();
 	ball.draw();
 }
