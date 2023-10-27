@@ -30,6 +30,7 @@ function preload() {
 	powImg = loadImage('pow.png');
 	bamImg = loadImage('bam.png');
 	zomImg = loadImage('zom.webp');
+	zomflipImg = loadImage('zom_flip.webp');
 }
 
 console.log("Compiled");
@@ -46,22 +47,23 @@ function setup() {
 	let s = width / 800; // scale factor to allow for different screen resolutions sizes
 	
 	BALL_RADIUS *= s;
-	zomImg.resize(zomImg.width*1.1, zomImg.height);
+	zomImg.resize(zomImg.width*1, zomImg.height*1.1);
+	zomflipImg.resize(zomImg.width, zomImg.height);
 	// REPLACE WITH YOUR MANY WONDERFUL OBSTACLES
 	obstacles = [];
-	bumper_locations = [createVector(width*.25, height*.5),
-		createVector(width*.65, height*.5),
-		createVector(width*.45, height*.3)];
+	bumper_locations = [createVector(width*.25, height*.4),
+		createVector(width*.65, height*.4),
+		createVector(width*.45, height*.2)];
 	for (let k = 0; k < 3; k++) {
 		let circleK = new CircleObstacle(bumper_locations[k], 45 * s);
 		//circleK.setCOR(random(1));
 		circleK.setColor(color(250, 0, 250));
 		circleK.setStrokeColor(color(250, 160, 250));
 		circleK.setCOR(0.85);
-		circleK.setEnergy(1000); //energy modeled as just adding the unit normal multiplied by some scalar
+		//circleK.setEnergy(500); //energy modeled as just adding the unit normal multiplied by some scalar
 		obstacles.push(circleK);
 	}
-	ufo_pos = createVector(width*.5, height*.25)
+	ufo_pos = createVector(width*.45, height*.3)
 	let ufo = new UFOObstacle(ufo_pos, s);
 	//circleK.setCOR(random(1));
 	ufo.setCOR(0.85);
@@ -74,15 +76,28 @@ function setup() {
 	obstacles.push(triangle);	
 
 	//Sling
-	let sling_l = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.09, height*.55), createVector(width*.09, height*.7), createVector(width*.25, height * .79));
+    let sling_bounce_l = new RoundBox(createVector(width*.19, height * .65), width * 0.007, height * .12, -PI/10)
+    sling_bounce_l.setColor(color(0, 250, 250));
+	sling_bounce_l.setCOR(1);
+	sling_bounce_l.setEnergy(300);
+	obstacles.push(sling_bounce_l);
+
+	let sling_bounce_r = new RoundBox(createVector(width*(.9-.19), height * .65), width * 0.007, height * .12, PI/10)
+    sling_bounce_r.setColor(color(0, 250, 250));
+	sling_bounce_r.setCOR(1);
+	sling_bounce_r.setEnergy(300);
+	obstacles.push(sling_bounce_r);
+	let sling_l = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.09, height*.55), createVector(width*.09, height*.7), createVector(width*.25, height * .79), 1);
 	sling_l.setColor(color(250, 0, 250));
 	sling_l.setCOR(0.1);
 	obstacles.push(sling_l);
 
-	let sling_r = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.81, height*.55), createVector(width*.81, height*.7), createVector(width*.65, height * .79));
+	let sling_r = new SlingObstacle(createVector(width*.25+10, height*.35+10), createVector(width*.81, height*.55), createVector(width*.81, height*.7), createVector(width*.65, height * .79), 2);
 	sling_r.setColor(color(250, 0, 250));
 	sling_r.setCOR(0.1);
 	obstacles.push(sling_r);
+
+	
 	
 	// Plunger Wall
 	let plungerWall = new RoundBox(createVector(width * 0.90, height * 0.65), width * 0.007, height / 2, 0);
@@ -111,7 +126,7 @@ function setup() {
 	}
 
 	// MAKE YOUR DOMAIN BOUNDARY (BASIC BOX FOR NOW):
-	let domainBox = new BoxObstacle(createVector(width / 2, height / 2), width / 2, height / 2);
+	let domainBox = new BoxObstacle(createVector(width / 2, height), width / 2, height);
 	domainBox.invert(); // think inside the box
 	obstacles.push(domainBox);
 	//print("|obstacles|=" + obstacles.length);
@@ -221,7 +236,7 @@ function ballIsInPortal() {
 // Returns true if the ball is in the endzone.
 function ballIsInEndzone() {
 	// SIMPLE CHECK FOR NOW:
-	return (ball.p.y > height * 0.95);
+	return (ball.p.y > height * 1.2);
 }
 
 function drawScene() {

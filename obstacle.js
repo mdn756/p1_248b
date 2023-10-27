@@ -392,24 +392,37 @@ class SlingObstacle extends Obstacle {
 	 * @param {number} bx Half-width in X
 	 * @param {number} by Half-width in Y
 	 */
-		constructor(p, p0, p1, p2) {
+		constructor(p, p0, p1, p2, version) {
 			super();
 			this.p = p;
 			this.p0 = p0;
 			this.p1 = p1;
 			this.p2 = p2;
+			this.version = version;
 		}
 
 	draw() {
 		push();
 		if (this.signMultiplier > 0) {
-			fill(this.color);
-			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
-			let scaleF = .45;
-			scale(scaleF)
-			translate(this.p2.x  / scaleF - width*.68, this.p2.y / scaleF- height*.5)
-			rotate(-PI*.09)
-			image(zomImg, 0, 0);
+			if (this.version == 1) {
+				fill(this.color);
+				//triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+				let scaleF = .45;
+				scale(scaleF)
+				translate(this.p2.x  / scaleF - width*.67, this.p2.y / scaleF- height*.52)
+				rotate(-PI*.075)
+				image(zomImg, 0, 0);
+			}
+			else {
+				fill(this.color);
+				//triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+				let scaleF = .45;
+				scale(scaleF)
+				translate(this.p2.x  / scaleF - width*0, this.p2.y / scaleF- height*.62)
+				rotate(PI*.075)
+				image(zomflipImg, 0, 0);
+			}
+			
 		}
 		pop();
 	}
