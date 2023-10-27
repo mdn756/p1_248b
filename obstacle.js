@@ -466,7 +466,7 @@ class SlingObstacle extends Obstacle {
 				//triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
 				let scaleF = .45;
 				scale(scaleF)
-				translate(this.p2.x  / scaleF - width*0, this.p2.y / scaleF- height*.62)
+				translate(this.p2.x  / scaleF - width*0.01, this.p2.y / scaleF- height*.63)
 				rotate(PI*.075)
 				image(zomflipImg, 0, 0);
 			}
