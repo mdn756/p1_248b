@@ -405,8 +405,11 @@ class SlingObstacle extends Obstacle {
 		if (this.signMultiplier > 0) {
 			fill(this.color);
 			triangle(this.p0.x, this.p0.y, this.p1.x, this.p1.y, this.p2.x, this.p2.y);
-			scale(.5)
-			image(zomImg, this.p.x , this.p.y);
+			let scaleF = .45;
+			scale(scaleF)
+			translate(this.p2.x  / scaleF - width*.54, this.p2.y / scaleF- height*.55)
+			rotate(-PI*.07)
+			image(zomImg, 0, 0);
 		}
 		pop();
 	}
