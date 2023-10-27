@@ -2,7 +2,8 @@ Sarah Teaw -- sarahlst@stanford.edu
 Max Nee -- mdn756@stanford.edu
 
 Features:
-    Plunger -- depends on how long the space bar is pressed to launch the ball
+    Plunger -- depends on how long the space bar is pressed to launch the ball. If you don't press long enough it
+               you'll lose a life. Important feature meant to reward patience :)
     Playfield -- limited to rectangle/triangle in corner to bounce ball at an angle for the intial start
     Background --image changed
     Score -- counter on top left
@@ -11,6 +12,7 @@ Features:
     Portal -- ball is able to teleport across the screen depending on its position
     Slingshot -- created triangle sdf, adds energy
     Targets -- change color, points the target scores
+    UFO: funny effect 
     Bottom wall -- ball rolls down to flipper like in a real pinball machine
 
 Use right and left keys to move the flipper, p to pause, n to start new game
